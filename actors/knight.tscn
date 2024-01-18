@@ -368,6 +368,7 @@ hframes = 6
 vframes = 8
 
 [node name="collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1, 24)
 shape = SubResource("RectangleShape2D_wm531")
 
@@ -377,6 +378,7 @@ libraries = {
 }
 
 [node name="attack_area" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 4
 
@@ -390,6 +392,10 @@ debug_color = Color(0.952941, 0, 0.552941, 0.419608)
 libraries = {
 "": SubResource("AnimationLibrary_w03se")
 }
+
+[node name="camera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]

@@ -2,7 +2,10 @@ extends CharacterBody2D
 
 @onready var anim = $anim as AnimationPlayer
 @onready var auxiliar_anim = $auxiliar_anim as AnimationPlayer
+@onready var texture = $texture as Sprite2D
 
+const ATTACK_AREA: PackedScene = preload('res://prefabs/enemy_attack_area.tscn')
+const OFFSET: Vector2 = Vector2(0, 31)
 
 var player_ref: CharacterBody2D = null
 var can_die: bool = false
@@ -18,7 +21,7 @@ func _physics_process(delta):
 	if can_die == true:
 		return
 	
-	if player_ref == null:
+	if player_ref == null or player_ref.can_die:
 		velocity = Vector2.ZERO
 		animate()
 		return
@@ -36,7 +39,19 @@ func _physics_process(delta):
 	animate()
 
 
+func spawn_attack_area() -> void:
+	var attack_area = ATTACK_AREA.instantiate()
+	attack_area.position = OFFSET
+	add_child(attack_area)
+
+
 func animate():
+	if velocity.x > 0:
+		texture.flip_h = false
+	elif velocity.x < 0:
+		texture.flip_h = true
+		
+		
 	if velocity != Vector2.ZERO:
 		anim.play('run')
 		return
