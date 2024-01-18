@@ -70,6 +70,7 @@ func _on_attack_area_body_entered(body):
 
 
 func update_health(value: int):
+	health -= value
 	if health <= 0:
 		can_die = true
 		anim.play('death')
